@@ -1,7 +1,9 @@
-
+import mongoose from "mongoose"
+import Login from "../models/Login.model.js"
 
 async function insert(id){
-    return `insert is called  from service LOGIN ${id}`
+    const data = Login.find()
+    return data
 }
 
 
