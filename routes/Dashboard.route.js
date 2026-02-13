@@ -1,15 +1,15 @@
 import express from 'express'
-import {getAll,getById,insert,update,deleteById} from '../services/Dashboard.service.js'
+import {getPatients,getDoctors,insert,update,deleteById} from '../services/Dashboard.service.js'
 const RouterDashboard = express.Router()
 
-RouterDashboard.get('/',async (req,res)=>{
-    const data = await getAll()
-    res.send(data)
+RouterDashboard.get('/patients',async (req,res)=>{
+    const data = await getPatients()
+    res.send("Total number of patients : "+data)
 })
 
-RouterDashboard.get('/:id',async (req,res)=>{
-    const data = await getById(req.params.id)
-    res.send(data)
+RouterDashboard.get('/doctors',async (req,res)=>{
+    const data = await getDoctors(req.params.id)
+    res.send("Total Doctors : "+data)
 })
 
 RouterDashboard.post('/:id',async (req,res)=>{
