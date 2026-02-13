@@ -1,21 +1,54 @@
+import mongoose from "mongoose"
+import Hospitalmaster from "../models/Hospitalmaster.model.js"
+
 async function getAll() {
-    return `GetAll from service from Hospital Master`
+    const data = await Hospitalmaster.find()
+    return data
 }
 
 async function getById(id){
-    return `GetById  from service Hospital Master ${id}`
+    const data = await Hospitalmaster.findById(id)
+    return(data)
 }
 
-async function insert(id){
-    return `insert is called  from service Hospital Master ${id}`
+async function insert(formData){
+   try{
+
+        const hos = new Hospitalmaster(formData)
+
+        await hos.validate()
+        await hos.save()
+
+        return(hos)
+    }catch(err){
+        console.log("Insert err" , err)
+    }
 }
 
-async function update(id){
-    return `update is called  from service Hospital Master ${id}`
+async function update(id,formData){
+    try{
+        const editHospital = await Hospitalmaster.findByIdAndUpdate(id,formData,{new:true})
+        if(!editHospital){
+            return 0
+        }
+        return(editHospital)
+    }catch(err){
+        console.log("Edit Error : ",err)
+    }
 }
 
 async function deleteById(id){
-    return `delete is called  from service Hospital Master ${id}`
+    try{
+        const DeletedHospital = await Hospitalmaster.findByIdAndDelete(id)
+
+        if(!DeletedHospital){
+            return 0
+        }
+
+        return (DeletedHospital)
+    }catch(err){
+        console.log("Error : ",err)
+    }
 }
 
 export {getAll,getById,insert,update,deleteById}
